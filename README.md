@@ -1,0 +1,1 @@
+项目基于Python语言，TensorFlow深度学习库完成项目相关仿真实验。将传统Jacobi算法与深度学习相结合，通过神经网络的展开和训练，产生了一种新的算法，从而实现更快的的收敛速度和更好的误码率性能。(已投论ELECTRONICS LETTERS LEETERS 二审中)
