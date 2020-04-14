@@ -156,14 +156,6 @@ X_LS = tf.squeeze(X_LS, 1)#删除所有大小是1的维度
 loss_LS = tf.reduce_mean(tf.square(X - X_LS))#损失函数军方误差
 ber_LS = tf.reduce_mean(tf.cast(tf.not_equal(X, tf.sign(X_LS)), tf.float32))#MMSE算法 sign相当于解调
 # tf.reduce_mean函数用于计算张量tensor沿着指定的数轴（tensor的某一维度）上的的平均值，主要用作降维或者计算tensor（图像）的平均值。
-#jacobi
-S1 = []#对输入x的评估
-S1.append(tf.zeros([batch_size, K]))
-for i in range(1, L):
-   S1[-1]=tf.matmul(tf.expand_dims(S1[-1], 1),C) + tf.matmul(tf.expand_dims(HY, 1),tf.matrix_inverse(HT))
-   S1[-1] = tf.squeeze(S1[-1], 1)
-loss_J = tf.reduce_mean(tf.square(X - S1[-1]))
-ber_J = tf.reduce_mean(tf.cast(tf.not_equal(X, tf.sign(S1[-1])), tf.float32))
 
 #153-180行为了计算神经网络的误码率
 S = []#对输入x的评估
@@ -186,7 +178,7 @@ for i in range(1, L):#L为神经网络层数
     
     #temp1 = tf.matmul(tf.expand_dims(S[-1], 1), HH)#matmul矩阵相乘，multiply是对应元素相乘；tf.expand_dims将全1插进S[]的第二列
     #(B,K)维加一维变成（B，1，K）,在通过squeeze变回(B,K)维。为了使S【】可以和HH相乘
-    S[-1]= tf.matmul(tf.expand_dims(S[-1], 1),C) + tf.matmul(tf.expand_dims(HY, 1),tf.matrix_inverse(HT))
+ 
     #temp1 = tf.squeeze(temp1, 1)#temp1中是1的全删除
     S[-1] = tf.squeeze(S[-1], 1)
     #temp1 = tf.matmul(C, temp1)+tf.matmul(tf.matrix_inverse(D),HY)
